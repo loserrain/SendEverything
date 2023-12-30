@@ -13,7 +13,7 @@ public class FileProcessor {
     public String generateContent(String inputText) throws Exception {
 
         String pre ="In accordance with";
-        String prompt  = "Classify the file name content and group similar topics together. The topic is Chinese and generates ONLY json";
+        String prompt  = "Classify the file name theme classification instead of image and text content, and group similar themes together. The theme is Chinese and the json format is generated.";
         String format= " {File name theme (excluding file extension)}:{[File List]}" +
                 "                { File name theme (excluding file extension) : [fileA,fileB]," +
                 "                  File name theme 2 (excluding file extension)}: [fileC]}";

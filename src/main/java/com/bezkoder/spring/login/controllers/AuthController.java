@@ -116,7 +116,7 @@ public class AuthController {
 
   @GetMapping("/checkAuth")
   public ResponseEntity<?> checkUser(HttpServletRequest request) {
-
+    
     return service.checkAuth(request);
   }
 

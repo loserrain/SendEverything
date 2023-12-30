@@ -1,11 +1,16 @@
 package com.bezkoder.spring.login.models;
 
+import com.bezkoder.spring.login.repository.DatabaseFileRepository;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Blob;
+import java.time.Instant;
+import java.util.Random;
 
 @Entity
+@Data
 @Table(name = "files")
 public class DatabaseFile {
 	@Id
@@ -13,52 +18,37 @@ public class DatabaseFile {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	private String fileName;
 
 	private String fileType;
-
+	private String verificationCode;
 	@Lob
 	private Blob data;
+	@OrderBy("timestamp DESC")
+	Instant timestamp = Instant.now();
+	private String shortUrl;
+
+	private transient DatabaseFileRepository databaseFileRepository;
+
 
 	public DatabaseFile() {
 
 	}
 
-	public DatabaseFile(String fileName, String fileType, Blob data) {
+	public DatabaseFile(String fileName, String fileType, Blob data ,Instant timestamp) {
 		this.fileName = fileName;
 		this.fileType = fileType;
 		this.data = data;
+		this.timestamp = timestamp;
 	}
 
-	public String getId() {
-		return id;
+
+
+
+
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
-
-	public String getFileType() {
-		return fileType;
-	}
-
-	public Blob getData() {
-		return data;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
-
-	public void setData(Blob data) {
-		this.data = data;
-	}
-}
